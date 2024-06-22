@@ -15,6 +15,8 @@
   "devDependencies": {
     "@auth/core": "^0.33.0",
     "@biomejs/biome": "1.8.2",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/js-cookie": "^3.0.6",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.4",
@@ -28,6 +30,7 @@
     "@vitejs/plugin-vue": "^5.0.5",
     "@vue/compiler-sfc": "^3.4.29",
     "@vue/server-renderer": "^3.4.29",
+    "cookie-parser": "^1.4.6",
     "cross-fetch": "^4.0.0",
     "js-cookie": "^3.0.5",
     "lowdb": "^7.0.1",

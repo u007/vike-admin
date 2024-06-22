@@ -1,8 +1,9 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
-import { cookiesStorage } from './storage.cookie'
+import { cookiesStorage, parseSavedState } from './storage.cookie'
 
-export const useAlertStore = defineStore('alertStore', {
-  state: () => ({
+const storeName = 'alertStore'
+export const useAlertStore = defineStore(storeName, {
+  state: () => parseSavedState(storeName, {
       loading: false,
       success: '',
       error: '',
