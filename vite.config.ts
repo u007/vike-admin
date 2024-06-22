@@ -30,8 +30,10 @@ export default defineConfig({
   plugins: [
     // tsconfigPaths(),
     trpc(),
-    vercel(),
-    ssr(),
+    // vercel(),
+    ssr({
+      // prerender: true,
+    }),
     vueApp,
     md({}),
     // piniaSsrPlugin,

@@ -10,4 +10,5 @@ export default {
   // <title>
   title: "SentientAI BackOffice",
   extends: [vikeVue, vikeVuePinia],
+  // passToClient: ["pinia"],
 } satisfies Config;
