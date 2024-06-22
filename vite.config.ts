@@ -4,9 +4,10 @@ import ssr from 'vike/plugin'
 import vercel from 'vite-plugin-vercel'
 import trpc from './trpc/vite-plugin'
 import { defineConfig } from 'vite'
-import tsconfigPaths from 'vite-tsconfig-paths'
+// import tsconfigPaths from 'vite-tsconfig-paths'
+import { resolve } from 'node:path'
 // import { createPinia } from 'pinia'
-import { cjsInterop } from 'vite-plugin-cjs-interop'
+// import { cjsInterop } from 'vite-plugin-cjs-interop'
 
 const vueApp = vue({
   include: [/\.vue$/, /\.md$/],
@@ -27,7 +28,7 @@ const vueApp = vue({
 
 export default defineConfig({
   plugins: [
-    tsconfigPaths(),
+    // tsconfigPaths(),
     trpc(),
     vercel(),
     ssr(),
@@ -38,6 +39,12 @@ export default defineConfig({
     //   dependencies: ['vue-toast-notification'],
     // }),
   ],
+  resolve: {
+    alias: {
+      "@": resolve(__dirname, "./"),
+    },
+  },
+  
   server: {
     port: 3805,
   },
