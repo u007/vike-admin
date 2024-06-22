@@ -7,7 +7,11 @@
     <li>Interactive. <Counter /></li>
   </ul>
 
+  <button @click="setB()">setB</button>
+
   alert? {{  $alert?.success }}
+
+  error? {{  $alert?.error }}
 </template>
 
 <script lang="ts" setup>
@@ -21,7 +25,11 @@ import { storeToRefs } from 'pinia'
 // const currentUser = $acl.currentUser
 
 const $alert = useAlertStore();
- 
+
+const setB = () => {
+  $alert.setError('BBB');
+}
+
 onMounted(() => {
   $alert.setSuccess('elo!');
 })

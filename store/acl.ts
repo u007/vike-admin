@@ -4,8 +4,8 @@ import { acceptHMRUpdate, defineStore } from 'pinia'
 import { httpBatchLink, createTRPCProxyClient } from '@trpc/client'
 import superjson from 'superjson'
 import type { ACLUserType } from '../models/UserType'
-import type { AppRouter } from '../server/trpc/routers'
 import type { PhotoURL } from '../models/photo_url'
+import { cookiesStorage } from './storage.cookie'
 // import { dataFetchSingle, dataFetchSingleWhere } from '../realm/data/get'
 
 export interface UserSession {
@@ -70,6 +70,10 @@ export const useAclStore = defineStore('acl', {
       return 'USD'
     }
   },
+  persist: {
+    debug: true,
+    storage: cookiesStorage
+  }
 })
 
 // if (import.meta.hot) {

@@ -26,6 +26,9 @@ dependencies:
   cross-fetch:
     specifier: ^4.0.0
     version: 4.0.0
+  js-cookie:
+    specifier: ^3.0.5
+    version: 3.0.5
   lowdb:
     specifier: ^7.0.1
     version: 7.0.1
@@ -44,9 +47,6 @@ dependencies:
   vike-vue:
     specifier: ^0.7.5
     version: 0.7.5(vike@0.4.177)(vue@3.4.29)
-  vike-vue-pinia:
-    specifier: ^0.1.1
-    version: 0.1.1(pinia@2.1.7)(vike-vue@0.7.5)(vike@0.4.177)(vue@3.4.29)
   vite-plugin-cjs-interop:
     specifier: ^2.1.1
     version: 2.1.1
@@ -1786,6 +1786,11 @@ packages:
     resolution: {integrity: sha512-U6QajmpV/nhL9SyfAewo000fkiRQ+Yd2H0lBxJJ9apjpOgkOcBQJWOrMo917lxLptdS/n/o/xPzMkXhF46K8hQ==}
     dev: true
 
+  /js-cookie@3.0.5:
+    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
+    engines: {node: '>=14'}
+    dev: false
+
   /js-yaml@3.14.1:
     resolution: {integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==}
     hasBin: true
@@ -2646,20 +2651,6 @@ packages:
 
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
-
-  /vike-vue-pinia@0.1.1(pinia@2.1.7)(vike-vue@0.7.5)(vike@0.4.177)(vue@3.4.29):
-    resolution: {integrity: sha512-VahVw1v4FznEP1a6Y+fL6ac65OH/iqrOXi6knGEPMSMKNv+yyMbaKF2plpEgNX3Fc4f6K/wTRvmh/jOmJA/png==}
-    peerDependencies:
-      pinia: ^2.0.0
-      vike: ^0.4.172
-      vike-vue: ^0.7.0
-      vue: ^3.0.0
-    dependencies:
-      pinia: 2.1.7(typescript@5.5.2)(vue@3.4.29)
-      vike: 0.4.177(vite@5.3.1)
-      vike-vue: 0.7.5(vike@0.4.177)(vue@3.4.29)
-      vue: 3.4.29(typescript@5.5.2)
-    dev: false
 
   /vike-vue@0.7.5(vike@0.4.177)(vue@3.4.29):
     resolution: {integrity: sha512-yAHrTGweBhUoKKlZmOE8shlLhCb1FNr6i18PKYFMz8j9x4nJNnTbjguxa9lpmMNjZQAQvByeHU0J66RdvbKnNg==}

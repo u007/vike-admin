@@ -1,14 +1,16 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
+import { cookiesStorage } from './storage.cookie'
 
-export const useAlertStore = defineStore('alert', {
-  state: () => {
-    return {
+export const useAlertStore = defineStore('alertStore', {
+  state: () => ({
       loading: false,
       success: '',
       error: '',
       link: '',
       linkLabel: ''
-    }
+  }),
+  getters: {
+    // doubleCount: (state) => state.count * 2,
   },
   actions: {
     setLink (link: string, linkLabel: string) {
@@ -23,10 +25,6 @@ export const useAlertStore = defineStore('alert', {
       this.error = msg
       this.success = ''
     },
-    clear () {
-      this.clearError()
-      this.success = ''
-    },
     clearSuccess () {
       this.success = ''
     },
@@ -34,7 +32,17 @@ export const useAlertStore = defineStore('alert', {
       this.error = ''
       this.link = ''
       this.linkLabel = ''
-    }
+    },
+    clear () {
+      this.error = ''
+      this.link = ''
+      this.linkLabel = ''
+      this.success = ''
+    },
+  },
+  persist: {
+    debug: true,
+    storage: cookiesStorage
   }
 })
 
