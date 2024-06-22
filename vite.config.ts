@@ -34,9 +34,9 @@ export default defineConfig({
     vueApp,
     md({}),
     // piniaSsrPlugin,
-    cjsInterop({
-      dependencies: ['vue-toast-notification'],
-    }),
+    // cjsInterop({
+    //   dependencies: ['vue-toast-notification'],
+    // }),
   ],
   server: {
     port: 3805,
