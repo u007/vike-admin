@@ -6,10 +6,12 @@ import superjson from 'superjson'
 import type { ACLUserType } from '../models/UserType'
 import type { PhotoURL } from '../models/photo_url'
 import { cookiesStorage } from './storage.cookie'
+import { AppRouter } from '../trpc/server'
 // import { dataFetchSingle, dataFetchSingleWhere } from '../realm/data/get'
 
 export interface UserSession {
   id: string;
+  email?: string;
   username?: string;
   photoURL?: PhotoURL;
   roles?: string[];
@@ -28,21 +30,90 @@ let refreshToken = typeof window !== 'undefined' ? window.localStorage.getItem('
 export const useAclStore = defineStore('acl', {
   state: () => ({
     loading: false,
-    currentUser: {} as UserSession,
+    currentUser: {} as UserSession | null,
     loginError: '' as string,
     cartSessionToken: '' as string,
     loadIndex: 0,
   }),
-  getters: {
-    isAuthenticated: () => {
-      return !!accessToken && !!currentUser.id
+  actions: {
+    async login(payload: { email: string, password: string }) {
+      this.loginError = ''
+      this.loading = true
+      try {
+        const client = this.trpcClient
+        const res = await client.auth.login.mutate(payload)
+        this.currentUser = res.user
+        this.cartSessionToken = res.cartSessionToken
+        this.loading = false
+        accessToken = res.accessToken
+        refreshToken = res.refreshToken
+        window.localStorage.setItem('accessToken', accessToken)
+        window.localStorage.setItem('refreshToken', refreshToken)
+      } catch (e: any) {
+        this.loginError = e.message
+        this.loading = false
+      }
     },
+    async logout() {
+      console.log('logging out')
+      this.loginError = ''
+      this.loading = true
+      try {
+        console.log('logging out')
+        this.loading = true
+        const client = this.trpcClient()
+        const res = await client.auth.logout.mutate({})
+        this.currentUser = null
+        this.cartSessionToken = ''
+        window.localStorage.clear()
+        console.log('done logout')
+      } catch (e: any) {
+        this.loginError = e.message
+        this.loading = false
+      } finally {
+        this.loading = false
+      }
+    },
+    // async refreshToken() {
+    //   this.loginError = ''
+    //   this.loading = true
+    //   try {
+    //     const client = this.trpcClient()
+    //     const res = await client.mutation('refreshToken', {})
+    //     this.currentUser = res.user
+    //     this.cartSessionToken = res.cartSessionToken
+    //     this.loading = false
+    //     accessToken = res.accessToken
+    //     refreshToken = res.refreshToken
+    //     window.localStorage.setItem('accessToken', accessToken)
+    //     window.localStorage.setItem('refreshToken', refreshToken)
+    //   } catch (e: any) {
+    //     this.loginError = e.message
+    //     this.loading = false
+    //   }
+    // },
+    async loadUser() {
+      this.loginError = ''
+      this.loading = true
+      try {
+        const client = this.trpcClient
+        const res = await client.query('loadUser', {})
+        this.currentUser = res.user
+        this.cartSessionToken = res.cartSessionToken
+        this.loading = false
+      } catch (e: any) {
+        this.loginError = e.message
+        this.loading = false
+      }
+    },
+  },
+  getters: {
     trpcClient: () => {
       const createClient = () => createTRPCProxyClient<AppRouter>({
         transformer: superjson,
         links: [
           httpBatchLink({
-            url: '/api/trpc',
+            url: '/trpc',
             headers: async () => {
               const token = window.localStorage.getItem('accessToken') || '' 
               return {

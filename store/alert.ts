@@ -43,7 +43,7 @@ export const useAlertStore = defineStore(storeName, {
   },
   persist: {
     debug: true,
-    storage: cookiesStorage
+    storage: persistedState.sessionStorage
   }
 })
 
